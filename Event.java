@@ -6,13 +6,13 @@ public class Event {
     public int eventId;
     public String name;
     public Date date;
-    public ArrayList<Member> Members;
+    public ArrayList<Member> members;
 
     Event(int pEventId, String pName, Date pDate, ArrayList<Member> pMembers) {
         eventId = pEventId;
         name = pName;
         date = pDate;
-        Members = pMembers;
+        members = pMembers;
     }
 
 

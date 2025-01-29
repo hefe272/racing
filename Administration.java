@@ -3,15 +3,23 @@ import java.util.Date;
 
 public class Administration {
 
+    private static Administration instance = null;
     public ArrayList<Member> memberList;
     public ArrayList<Event> eventList;
     public String clubName;
 
 
-    Administration(String pClubName, ArrayList<Member> pMemberList, ArrayList<Event> pEventList) {
-        memberList = pMemberList;
-        eventList = pEventList;
-        clubName = pClubName;
+    private Administration() {
+        memberList = new ArrayList<Member>();
+        eventList = new ArrayList<Event>();
+        clubName = "";
+    }
+
+    public static Administration getInstance() {
+        if (instance == null) {
+            instance = new Administration();
+        }
+        return instance;
     }
 
     public void register(String firstName, String lastName, String email, Date birthday) {

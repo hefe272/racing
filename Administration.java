@@ -49,8 +49,22 @@ public class Administration {
                 newEventId ++;
             }
         }
-        Event event = new Event(newEventId,name,date);
-        eventList.add(event);
+        System.out.println("Tournament('a') or Training('b')?");
+        String answer = System.console().readLine();
+        if(answer.equalsIgnoreCase("a")) {
+            System.out.println("Max Teilnehmer?");
+            int maxTeilnehmer = Integer.parseInt(System.console().readLine());
+            Tournament tournament = new Tournament(newEventId,name,date,maxTeilnehmer);
+            eventList.add(tournament);
+        } else if(answer.equalsIgnoreCase("b")) {
+            System.out.println("Sportart??");
+            String sportart = System.console().readLine();
+            Training training = new Training(newEventId,name,date, Training.tot.valueOf(sportart));
+            eventList.add(training);
+        } else {
+            System.out.println("I cant understand u! \n Procces interupted!");
+            return;
+        }
     }
 
     public void cancelEvent(int eventId){

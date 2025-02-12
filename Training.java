@@ -3,7 +3,8 @@ import java.util.Date;
 
 public class Training extends Event{
 
-    public enum tot {Fußball,
+    public enum tot {
+        Fußball,
         Handball,
         Volleyball,
         Tischtennis,

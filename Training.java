@@ -19,8 +19,8 @@ public class Training extends Event{
 
     public tot type;
 
-    Training(int pEventId, String pName, Date pDate, ArrayList<Member> pMembers, tot ptype) {
-        super(pEventId, pName, pDate, pMembers);
+    Training(int pEventId, String pName, Date pDate, tot ptype) {
+        super(pEventId, pName, pDate);
         type = ptype;
     }
 }

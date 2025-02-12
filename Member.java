@@ -19,26 +19,7 @@ public class Member {
     }
 
 
-    private void toggleEventSignUpStatus(int eventId) throws NullPointerException{
-        Administration administration = Administration.getInstance();
-        ArrayList<Event> events = administration.getAvailableEvents();
-        Event event=null;
 
-        for (Event e : events) {
-            if (e.eventId == eventId) event = e;
-        }
-        if (event == null) {
-            throw new NullPointerException("Event not found");
-        }
-        if (event.members.contains(this)) {
-            event.members.remove(this);
-        } else event.members.add(this);
-    }
-
-    private void cancelMembership() {
-        Administration administration = Administration.getInstance();
-        administration.remove(this);
-    }
 
     public int getMemberId() {
         return memberId;

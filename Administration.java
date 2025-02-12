@@ -3,23 +3,15 @@ import java.util.Date;
 
 public class Administration {
 
-    private static Administration instance = null;
     public ArrayList<Member> memberList;
     public ArrayList<Event> eventList;
     public String clubName;
 
 
-    private Administration() {
-        memberList = new ArrayList<Member>();
-        eventList = new ArrayList<Event>();
-        clubName = "";
-    }
-
-    public static Administration getInstance() {
-        if (instance == null) {
-            instance = new Administration();
-        }
-        return instance;
+    Administration(String pClubName) {
+        memberList = new ArrayList<>();
+        eventList = new ArrayList<>();
+        clubName = pClubName;
     }
 
     public void register(String firstName, String lastName, String email, Date birthday) {
@@ -27,7 +19,7 @@ public class Administration {
         int newMemberId = memberList.size();
 
         for(int i = 0; i < memberList.size(); i++) {
-            if(memberList.get(i).memberId == newMemberId) {
+            if(memberList.get(i).getMemberId() == newMemberId) {
                 i = 0;
                 newMemberId ++;
             }
@@ -37,41 +29,40 @@ public class Administration {
         memberList.add(member);
     }
 
-    public void remove(Member member) {
-        try {
-            memberList.remove(member);
-        } catch(Exception e) {
-            System.out.println("Member not found");
+    public void remove(int memberId) {
+
+
+        for(Member m : memberList) {
+            if(m.getMemberId() == memberId) {
+                memberList.remove(m);
+                break;
+            }
         }
+        System.out.println("Member not found");
     }
 
     public void createEvent(String name, Date date){
-
         int newEventId = eventList.size();
-        ArrayList<Member> members = new ArrayList<>();
-
         for(int i = 0; i <eventList.size(); i++) {
             if(eventList.get(i).eventId == newEventId) {
                 i = 0;
                 newEventId ++;
             }
         }
-
-        Event event = new Event(newEventId,name,date,members);
+        Event event = new Event(newEventId,name,date);
         eventList.add(event);
-
     }
 
     public void cancelEvent(int eventId){
 
         for(Event event : eventList) {
             if(event.eventId == eventId) {
-                if(!event.Members.isEmpty()){
+                if(!event.memberIds.isEmpty()){
                     System.out.println("Member list is not empty, do you still want to proceed? (Y/N)");
                     String answer = System.console().readLine();
                     if(answer.equalsIgnoreCase("y")) {
-                        event.Members.clear();
-                    } if(answer.equalsIgnoreCase("n")) {
+                        event.memberIds.clear();
+                    } else if(answer.equalsIgnoreCase("n")) {
                         System.out.println("Process interupted");
                         return;
                     } else {
@@ -91,4 +82,20 @@ public class Administration {
         return eventList;
     }
 
+    private void toggleEventSignUpStatus(int eventId, int memberId) throws NullPointerException{
+
+        Event event = null;
+
+        for (Event e : eventList) {
+            if (e.eventId == eventId) event = e;
+        }
+
+
+        if (event == null) {
+            throw new NullPointerException("Event not found");
+        }
+        if (event.memberIds.contains(memberId)) {
+            event.memberIds.remove(memberId);
+        } else event.memberIds.add(memberId);
+    }
 }

@@ -21,7 +21,7 @@ public class Member {
 
     private void toggleEventSignUpStatus(int eventId) throws NullPointerException{
         Administration administration = Administration.getInstance();
-        ArrayList<Event> events = administration.getAvailableEvents();
+        ArrayList<Event> events = administration.getEventList();
         Event event=null;
 
         for (Event e : events) {

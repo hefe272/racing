@@ -27,7 +27,7 @@ public class Administration {
         int newMemberId = memberList.size();
 
         for(int i = 0; i < memberList.size(); i++) {
-            if(memberList.get(i).memberId == newMemberId) {
+            if(memberList.get(i).getMemberId() == newMemberId) {
                 i = 0;
                 newMemberId ++;
             }
@@ -66,11 +66,11 @@ public class Administration {
 
         for(Event event : eventList) {
             if(event.eventId == eventId) {
-                if(!event.Members.isEmpty()){
+                if(!event.members.isEmpty()){
                     System.out.println("Member list is not empty, do you still want to proceed? (Y/N)");
                     String answer = System.console().readLine();
                     if(answer.equalsIgnoreCase("y")) {
-                        event.Members.clear();
+                        event.members.clear();
                     } if(answer.equalsIgnoreCase("n")) {
                         System.out.println("Process interupted");
                         return;

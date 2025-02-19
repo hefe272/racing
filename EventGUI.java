@@ -19,17 +19,26 @@ public class EventGUI {
     private JFrame eventmanagement;
     private JButton backtomainmenu_event;
 
+    // Liste mit Events
+
+    private JLabel event_name;
+    private JLabel event_date;
+    private JLabel event_id;
+    private JTextArea event_liste;
+    private JScrollPane event_list_scroll;
+
 // Member management
     private JFrame membermanagement;
     private JButton backtomainmenu_member;
 
     // Liste mit Mitgliedern
 
-    private JLabel vorname;
-    private JLabel nachname;
-    private JLabel mitglieds_id;
-    private JTextArea mitgliederfeld;
-    private JScrollPane mitgliederlisteScrollPane;
+    private JLabel mitglied_vorname;
+    private JLabel mitglied_nachname;
+    private JLabel mitglied_id;
+    private JTextArea mitglied_liste;
+    private JScrollPane mitglied_liste_scroll;
+
 
    // Mitglied löschen
 
@@ -80,6 +89,17 @@ public class EventGUI {
         backtomainmenu_event = new JButton("Zurück");
         backtomainmenu_event.setBounds(10,10,75,30);
 
+        event_name = new JLabel("Name");
+        event_name.setBounds(12,50,100,30);
+        event_date = new JLabel("Datum");
+        event_date.setBounds(205,50,100,30);
+        event_id = new JLabel("ID");
+        event_id.setBounds(300,50,100,30);
+        event_liste = new JTextArea();
+        event_liste.setEditable(false);
+        event_list_scroll = new JScrollPane(event_liste);
+        event_list_scroll.setBounds(10,75,320,390);
+
 
 
         // Membermanagement initialisierung
@@ -97,16 +117,16 @@ public class EventGUI {
         mitglied_loeschen.setBounds(550,10,200,35);
         backtomainmenu_member = new JButton("Zurück");
         backtomainmenu_member.setBounds(10,10,75,30);
-        mitgliederfeld = new JTextArea();
-        mitgliederfeld.setEditable(false);
-        mitgliederlisteScrollPane = new JScrollPane(mitgliederfeld);
-        mitgliederlisteScrollPane.setBounds(10,75,300,390);
-        vorname = new JLabel("Vorname");
-        vorname.setBounds(10,50,100,30);
-        nachname = new JLabel("Nachname");
-        nachname.setBounds(108,50,100,30);
-        mitglieds_id = new JLabel("Mitglieds ID");
-        mitglieds_id.setBounds(204,50,100,30);
+        mitglied_liste = new JTextArea();
+        mitglied_liste.setEditable(false);
+        mitglied_liste_scroll = new JScrollPane(mitglied_liste);
+        mitglied_liste_scroll.setBounds(10,75,300,390);
+        mitglied_vorname = new JLabel("Vorname");
+        mitglied_vorname.setBounds(10,50,100,30);
+        mitglied_nachname = new JLabel("Nachname");
+        mitglied_nachname.setBounds(108,50,100,30);
+        mitglied_id = new JLabel("Mitglieds ID");
+        mitglied_id.setBounds(204,50,100,30);
         mitglieds_id_area = new JTextArea();
         mitglieds_id_area.setEditable(true);
         mitglieds_id_area.setBounds(500,100,50,15);
@@ -165,8 +185,9 @@ public class EventGUI {
                 mitglied_entgueltig_anlegen.setVisible(false);
 
 
+                mitglied_liste.setText("");
                 for(int i = 0; i < admin.memberList.size(); i++){
-                    mitgliederfeld.append(admin.memberList.get(i).getFirstName() + "\t" + admin.memberList.get(i).getLastName() + "\t" + admin.memberList.get(i).getMemberId() + "\n");
+                    mitglied_liste.append(admin.memberList.get(i).getFirstName() + "\t" + admin.memberList.get(i).getLastName() + "\t" + admin.memberList.get(i).getMemberId() + "\n");
                 }
 
 
@@ -178,6 +199,12 @@ public class EventGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainmenu.setVisible(false);
+
+                event_liste.setText("");
+                for(int i = 0; i < admin.eventList.size(); i++){
+                    event_liste.append(admin.eventList.get(i).name + "\t" + admin.eventList.get(i).date + "\t" + admin.eventList.get(i).eventId + "\n");
+                }
+
                 eventmanagement.setVisible(true);
             }
         });
@@ -245,9 +272,9 @@ public class EventGUI {
 
                 admin.remove(mitglieds_id);
 
-                mitgliederfeld.setText("");
+                mitglied_liste.setText("");
                 for(int i = 0; i < admin.memberList.size(); i++){
-                    mitgliederfeld.append(admin.memberList.get(i).getFirstName() + "\t" + admin.memberList.get(i).getLastName() + "\t" + admin.memberList.get(i).getMemberId() + "\n");
+                    mitglied_liste.append(admin.memberList.get(i).getFirstName() + "\t" + admin.memberList.get(i).getLastName() + "\t" + admin.memberList.get(i).getMemberId() + "\n");
                 }
 
 
@@ -259,9 +286,9 @@ public class EventGUI {
             public void actionPerformed(ActionEvent e) {
                 admin.register(mitglieds_vorname.getText(),mitglieds_nachname.getText(),mitglieds_eMail.getText(),Date.valueOf(mitglieds_geburtstag.getText()));
 
-                mitgliederfeld.setText("");
+                mitglied_liste.setText("");
                 for(int i = 0; i < admin.memberList.size(); i++){
-                    mitgliederfeld.append(admin.memberList.get(i).getFirstName() + "\t" + admin.memberList.get(i).getLastName() + "\t" + admin.memberList.get(i).getMemberId() + "\n");
+                    mitglied_liste.append(admin.memberList.get(i).getFirstName() + "\t" + admin.memberList.get(i).getLastName() + "\t" + admin.memberList.get(i).getMemberId() + "\n");
                 }
             }
         });
@@ -308,7 +335,10 @@ public class EventGUI {
 
         // Eventmanagement füllen
         eventmanagement.add(backtomainmenu_event);
-
+        eventmanagement.add(event_id);
+        eventmanagement.add(event_name);
+        eventmanagement.add(event_date);
+        eventmanagement.add(event_list_scroll);
 
 
 
@@ -318,10 +348,10 @@ public class EventGUI {
         membermanagement.add(new JLabel (""));
         membermanagement.add(mitglied_loeschen);
         membermanagement.add(mitglied_registrieren);
-        membermanagement.add(mitgliederlisteScrollPane);
-        membermanagement.add(vorname);
-        membermanagement.add(nachname);
-        membermanagement.add(mitglieds_id);
+        membermanagement.add(mitglied_liste_scroll);
+        membermanagement.add(mitglied_vorname);
+        membermanagement.add(mitglied_nachname);
+        membermanagement.add(mitglied_id);
         membermanagement.add(mitglieds_id_area);
         membermanagement.add(mitglieds_id_area_label);
         membermanagement.add(mitglied_entgueltig_loeschen);

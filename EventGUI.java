@@ -1,5 +1,3 @@
-import com.sun.jdi.IntegerValue;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,12 +8,20 @@ import java.sql.Date;
 
 
 public class EventGUI {
+
+// Main menu
+
     private JFrame mainmenu;
-    private JButton mitgliedsverwaltung;
+    private JButton mitgliedverwaltung;
+    private JButton eventverwaltung;
 
+// Event management
+    private JFrame eventmanagement;
+    private JButton backtomainmenu_event;
 
+// Member management
     private JFrame membermanagement;
-    private JButton backtomainmenu;
+    private JButton backtomainmenu_member;
 
     // Liste mit Mitgliedern
 
@@ -52,13 +58,29 @@ public class EventGUI {
     public EventGUI(Administration admin) {
 
         mainmenu = new JFrame("Hauptmenü");
-        mainmenu.setSize(200, 200);
+        mainmenu.setSize(200, 100);
         mainmenu.setLocationRelativeTo(null);
         mainmenu.setResizable(false);
         mainmenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainmenu.setLayout(new FlowLayout());
 
-        mitgliedsverwaltung = new JButton("Mitgliedsverwaltung");
+        mitgliedverwaltung = new JButton("Mitgliedverwaltung");
+        eventverwaltung = new JButton("  Eventverwaltung  ");
+
+
+        // Eventverwaltung initalisieren
+
+        eventmanagement = new JFrame("Eventverwaltung");
+        eventmanagement.setSize(800, 500);
+        eventmanagement.setLocationRelativeTo(null);
+        eventmanagement.setResizable(false);
+        eventmanagement.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        eventmanagement.setLayout(null);
+
+        backtomainmenu_event = new JButton("Zurück");
+        backtomainmenu_event.setBounds(10,10,75,30);
+
+
 
         // Membermanagement initialisierung
 
@@ -73,8 +95,8 @@ public class EventGUI {
         mitglied_registrieren.setBounds(350,10,200,35);
         mitglied_loeschen = new JButton("Mitglied entfernen");
         mitglied_loeschen.setBounds(550,10,200,35);
-        backtomainmenu = new JButton("Zurück");
-        backtomainmenu.setBounds(10,10,75,30);
+        backtomainmenu_member = new JButton("Zurück");
+        backtomainmenu_member.setBounds(10,10,75,30);
         mitgliederfeld = new JTextArea();
         mitgliederfeld.setEditable(false);
         mitgliederlisteScrollPane = new JScrollPane(mitgliederfeld);
@@ -124,7 +146,7 @@ public class EventGUI {
 
 
         // Hauptmenü Buttons
-        mitgliedsverwaltung.addActionListener(new ActionListener() {
+        mitgliedverwaltung.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainmenu.setVisible(false);
@@ -151,6 +173,15 @@ public class EventGUI {
                 membermanagement.setVisible(true);
             }
         });
+
+        eventverwaltung.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainmenu.setVisible(false);
+                eventmanagement.setVisible(true);
+            }
+        });
+
 
 
         // Mitgliedsverwaltungs Buttons
@@ -198,7 +229,7 @@ public class EventGUI {
 
 
 
-        backtomainmenu.addActionListener(new ActionListener() {
+        backtomainmenu_member.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 membermanagement.setVisible(false);
@@ -236,6 +267,17 @@ public class EventGUI {
         });
 
 
+        // Buttons fürs Eventmanagement
+
+        backtomainmenu_event.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eventmanagement.setVisible(false);
+                mainmenu.setVisible(true);
+            }
+        });
+
+
         // Key Listener für die Felder
         mitglieds_id_area.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent ke) {
@@ -251,9 +293,28 @@ public class EventGUI {
         });
 
 
+
+
+
+
         // Frames füllen
 
-        membermanagement.add(backtomainmenu);
+
+
+        // Main menu füllen
+        mainmenu.add(mitgliedverwaltung);
+        mainmenu.add(eventverwaltung);
+        mainmenu.setVisible(true);
+
+        // Eventmanagement füllen
+        eventmanagement.add(backtomainmenu_event);
+
+
+
+
+        // Membermanagement füllen
+
+        membermanagement.add(backtomainmenu_member);
         membermanagement.add(new JLabel (""));
         membermanagement.add(mitglied_loeschen);
         membermanagement.add(mitglied_registrieren);
@@ -274,9 +335,7 @@ public class EventGUI {
         membermanagement.add(mitglieds_eMail_label);
         membermanagement.add(mitglied_entgueltig_anlegen);
 
-        mainmenu.add(mitgliedsverwaltung);
 
 
-        mainmenu.setVisible(true);
     }
 }

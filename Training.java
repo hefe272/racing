@@ -15,14 +15,20 @@ public class Training extends Event{
         LeagueOfLegends,
         Tanzen,
         Basketball,
-        Pilates
+        Pilates,
+        Laufen,
+        Klettern,
+        Schwimmen,
+        Gewichtheben,
+        Poker,
+        Hindernislauf
     };
 
     public tot type;
 
-    Training(int pEventId, String pName, Date pDate, tot ptype) {
+    Training(int pEventId, String pName, Date pDate, String ptype) {
         super(pEventId, pName, pDate);
-        type = ptype;
+        type = tot.valueOf(ptype);
     }
 }
 

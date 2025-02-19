@@ -41,7 +41,7 @@ public class Administration {
         System.out.println("Member not found");
     }
 
-    public void createEvent(String name, Date date){
+    public void createEvent(String name, Date date, int maxTeilnehmer){
         int newEventId = eventList.size();
         for(int i = 0; i <eventList.size(); i++) {
             if(eventList.get(i).eventId == newEventId) {
@@ -49,24 +49,25 @@ public class Administration {
                 newEventId ++;
             }
         }
-        System.out.println("Tournament('a') or Training('b')?");
-        String answer = System.console().readLine();
-        if(answer.equalsIgnoreCase("a")) {
-            System.out.println("Max Teilnehmer?");
-            int maxTeilnehmer = Integer.parseInt(System.console().readLine());
-            Tournament tournament = new Tournament(newEventId,name,date,maxTeilnehmer);
+
+        Tournament tournament = new Tournament(newEventId,name,date,maxTeilnehmer);
             eventList.add(tournament);
-        } else if(answer.equalsIgnoreCase("b")) {
-            System.out.println("Sportart??");
-            String sportart = System.console().readLine();
-            Training training = new Training(newEventId,name,date, Training.tot.valueOf(sportart));
-            eventList.add(training);
-        } else {
-            System.out.println("I cant understand u! \n Procces interupted!");
-            return;
-        }
+
+
     }
 
+    public void createEvent(String name, Date date, String sportart){
+        int newEventId = eventList.size();
+        for(int i = 0; i <eventList.size(); i++) {
+            if(eventList.get(i).eventId == newEventId) {
+                i = 0;
+                newEventId ++;
+            }
+        }
+
+        Training training = new Training(newEventId,name,date,sportart);
+        eventList.add(training);
+    }
     public void cancelEvent(int eventId){
 
         for(Event event : eventList) {

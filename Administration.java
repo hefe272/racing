@@ -75,13 +75,13 @@ public class Administration {
                 if(!event.memberIds.isEmpty()){
                     System.out.println("Member list is not empty, do you still want to proceed? (Y/N)");
                     String answer = System.console().readLine();
-                    if(answer.equalsIgnoreCase("y")) {
+                    if(answer.equalsIgnoreCase("y") ) {
                         event.memberIds.clear();
                     } else if(answer.equalsIgnoreCase("n")) {
-                        System.out.println("Process interupted");
+                        System.out.println("Process interrupted");
                         return;
                     } else {
-                        System.out.println("I cant understand u! \n Procces interupted!");
+                        System.out.println("I cant understand u! \n Process interrupted!");
                         return;
                     }
 

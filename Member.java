@@ -18,9 +18,6 @@ public class Member {
         lastName = pLastName;
     }
 
-
-
-
     public int getMemberId() {
         return memberId;
     }

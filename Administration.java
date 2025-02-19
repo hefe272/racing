@@ -35,7 +35,7 @@ public class Administration {
         for(Member m : memberList) {
             if(m.getMemberId() == memberId) {
                 memberList.remove(m);
-                break;
+                return;
             }
         }
         System.out.println("Member not found");
@@ -97,20 +97,43 @@ public class Administration {
         return eventList;
     }
 
-    private void toggleEventSignUpStatus(int eventId, int memberId) throws NullPointerException{
+    private void toggleEventSignUpStatus(int eventId, int memberId, boolean anmelden) throws NullPointerException{
 
         Event event = null;
+        int zv = -5;
 
         for (Event e : eventList) {
             if (e.eventId == eventId) event = e;
         }
 
 
+
+
         if (event == null) {
             throw new NullPointerException("Event not found");
         }
-        if (event.memberIds.contains(memberId)) {
-            event.memberIds.remove(memberId);
-        } else event.memberIds.add(memberId);
+        if (event.memberIds.contains(memberId) && !anmelden) {
+            for(int i = 0; i < memberList.size(); i++) {
+                if(event.memberIds.get(i) == memberId) {
+                    zv = i;
+                    break;
+                }
+            }
+            if (zv == -5){
+                throw new NullPointerException("Member not found");
+            }
+            event.memberIds.remove(zv);
+
+        } else if (!event.memberIds.contains(memberId) && anmelden){
+            event.memberIds.add(memberId);
+        }
+    }
+
+    public void anmelden(int eventId, int memberId){
+        toggleEventSignUpStatus(eventId, memberId, true);
+    }
+
+    public void abmelden(int eventId, int memberId){
+        toggleEventSignUpStatus(eventId, memberId, false);
     }
 }

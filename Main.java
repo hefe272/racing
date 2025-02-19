@@ -77,8 +77,22 @@ public class Main {
 
         admin.getEventList();
 
+        admin.remove(7);
 
-        System.out.println("Test");
+        admin.anmelden(7,10);
+        admin.abmelden(7,10);
+        admin.anmelden(7,5);
+
+
+        // admin.cancelEvent(7);
+
+        System.out.println("\n\n_______________________\nTest abgeschlossen");
+
+
+
+
+
+        new EventGUI(admin);
     }
 }
 

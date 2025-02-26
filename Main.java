@@ -73,15 +73,20 @@ public class Main {
 
         // Tournament Ende
 
-
-
-        admin.getEventList();
-
         admin.remove(7);
 
         admin.anmelden(7,10);
         admin.abmelden(7,10);
         admin.anmelden(7,5);
+
+        System.out.println(admin.getEventList().get(7));
+
+
+        admin.cancelEvent(7);
+
+        System.out.println(admin.getEventList().get(7));
+
+
 
 
         // admin.cancelEvent(7);
